@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Android</string>
+    <string name="call_holding_time">通话时长</string>
+    <string name="arrange_center_call">调度中心来电</string>
+    <string name="close_microphone">关闭麦克风</string>
+    <string name="open_speakerphone">开启免提</string>
+</resources>

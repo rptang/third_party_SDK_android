@@ -1,0 +1,217 @@
+ReleaseNote Version 5.3.1
+SDK:
+1、sdk适配部分儿童早教产品在视频通话本地及远端视频旋转度问题。
+2、适配努比亚、三星视频通话偶现的崩溃问题。
+3、媒体库支持android6.0系统，设置targetsdkversion大于等于23
+4、音频啸叫抑制，优化音视频质量
+5、修复已知bug
+
+**********************************注意事项******************************
+从v5.3.1开始，sdk底层库进行了拆分、由之前的libserphone.so拆分为libserphone.so与libECMedia.so。IM版本跟Full版本的libserphone.so 不一样、请注意区分。
+
+---------------------------------------------------------- 
+|	   libserphone.so   | 核心so、必须导入。            |
+---------------------------------------------------------- 
+|	   libECMedia.so    | 音视频的编解码及相关功能so      |
+---------------------------------------------------------- 
+|	 libvoicechange.so  | IM过程中发送变声语音所采用的so. |
+---------------------------------------------------------- 
+|	libyuntx_gl_disp.so | 视频通话过程中OpenGL所采用的so |
+---------------------------------------------------------- 
+使用说明：
+1、使用IM基本功能，开发者只需要导入libserphone.so。
+2、使用音视频功能，开发者需要导入libserphone.so和libECMedia.so，如果使用到ECOpenGlView还需导入libyuntx_gl_disp.so。
+
+
+Demo:
+1、修复视频会议，放大、缩小视频图像切换之后不能显示图像的偶现问题。
+2、demo增加华为推送、以适配华为6.0系统手机接收消息问题：
+   demo中使用的华为push sdk与百度sdk冲突、已将华为推送的Sdk中包含百度地图相关的类去除、如果需要全量版的华为推送sdk、可以去华为推送平台下载全量版的sdk、与华为推送相关的类集中在ui.huawei包下面。由于配置项目太多、在此不做列举、清单文件配置请参考demo中有关华为推送配置相关的节点。
+
+================我是分割线================
+Release Version 5.3.0
+sdk新增功能如下：
+1.sdk集成红包和表情初始化,应用无需初始化.
+2.查询已读未读消息接口修改,更改为http请求,应用已经封装好
+3.采用先进的音频编码算法，提高抗丢包能力，增强音质，在差网络下也能正常沟通.
+4.优化视频网络自适应算法，使视频更加流程，适应不同网络环境
+
+demo新增功能：
+1.聊天页面支持发送红包和抢红包以及零钱功能。
+2.支持发送多样化的表情,以及表情商店下载表情.
+3.新增意见反馈入口(备注:在设置页面).
+
+================我是分割线================
+Release Version 5.2.2
+------sdk新加新功能
+    1、SDK 增加撤回已经发送成功的消息功能、支持单聊及群聊（发送后2分钟之内的消息）、对应的api是ECChatManager.revokeMessage对方将会收到ECMessageRevokeNotify消息被撤回通知。
+    2、SDK增加获取单条消息已读未读状态接口、只支持群聊、适应于查看当前群聊中消息被哪些人看过及哪些人没看过、对应api  ECChatManager.queryMessageReadStatus方法。
+    3、SDK增加将消息置为已读状态功能、对应api是ECChatManager.readMessage方法、对方将会收到ECMessageReadNotify已读通知。
+    4、SDK增加置顶会话功能、适应于在聊天过程中将经常的会话用于置顶在会话列表、支持单聊及群聊、设置会话置顶
+api是ECChatManager.setSessionToTop接口、获取个人所设置的置顶会话方法ECChatManager.getSessionsOfTop、开发者可以在app中调用该方法将用户经常需要置顶的会话放到顶端。   
+    5、SDK增加取消正在发送中的附件功能、支持voiceBody、videoBody、fileBody、imageBody、preViewBody消息body、取消的回调结果在onSendMessageComplete回调中返回171259错误码。
+    6、SDK增加发送图片及视频消息body增加宽高功能、在接收方获取当前消息宽高针对手机屏幕可以做合适的UI展示。
+    7、SDK增加上传附件消息、在回调接口中返回上传文件的url路径。
+    8、SDK增加语音、视频会议中管理员可以对成员实现禁言、禁听功能、对应api是ECMeetingManager.setMemberSpeakListen方法、被设置的成员将在ECVideoMeetingMemberForbidOpt或ECVoiceMeetingMemberForbidOpt获取自己被管理员设置的状态。
+    
+
+———bug修复及优化
+  1、sdk提高sdk服务存活率需要在apps的清单文件配置<service android:name="com.yuntongxun.ecsdk.ECClientService$InnerService" android:enabled="true" android:process=":push" />。
+  2、sdk适配三星s6创建会议失败、适配ZTE N918St通话声音小。
+  3、sdk修复部分智能家居设备本端预览卡住问题。
+  4、sdk在Im部分模块加入错误描述、帮助开发者快速排查集成过程中的问题。
+  
+
+———demo增加功能
+1、demo增加消息撤回、消息已读未读、查看消息已读未读状态、消息回执。
+2、demo增加会话置顶。
+3、demo增加语音、视频会议禁言禁听功能。
+4、demo清单文件及类中增加注释、帮助更快速、便捷的查看demo实现。
+
+
+Release Version 5.2.1
+------sdk新加新功能
+
+
+    1、SDK 增加发送富文本IM消息功能、对应的msgBody是ECPreviewMessageBody、具体使用可以参考api帮助文档及demo、用于apps发送分享的网页及其它场景、解析网页的过程可以参考demo使用jsoup或者使用其他实现。
+    2、SDK增加会议中断消息、对应ECVoiceMeetingCutMsg、ECVideoMeetingCutMsg、ECInterphoneCutMsg三种会议消息类型、用于在会议过程中由于网络及其他原因造成挂机事件上报给apps进行处理。       3、SDK增加发送IM状态消息、对应ECUserStateMessageBody消息类型、开发者需要自己发送状态消息、用于在IM沟通过程中可以获取对方的输入、录音等状态及其他场景需求。
+    4、SDK增加转让群组创建者的功能、对应ECGroupManager.setGroupMemberRole方法、使用时需要将ECGroupManager.ECGroupMemberRole.TRANSFER传入。
+    5、SDK增加发送@消息功能、ECTextMessageBody增加isAt及atMembers属性、apps可以在群组等会话中设置是否是@消息及@了哪些人、接收端可以在接收消息处解析这个字段获取是否是别人@了自己用户界面展示。
+    6、SDK增加ECCaptureTextureView视频通话及会视频会议本地view、需要当前安卓api最少 14及以上、并确认当前的activity配置了android:hardwareAccelerated=“true”。、用方法类似ECCaptureView具体使用可以参考该类的api文档。
+    7、SDK增加创建会议自定义参数及视频会议邀请参数。
+
+
+
+
+———bug修复及优化
+
+
+  1、sdk修复视频通话内存泄露、拨打奔溃及注销过程偶现的空指针。
+  2、sdk适配小米note2创建会议失败、适配华为mate7视频通话、demo适配vivo手机。
+  3、sdk增加对部分机型voip过程中音频的适配。
+  4、sdk优化视频通话本地帧率的控制、优化通话流畅性。
+  
+
+
+———demo增加功能
+1、demo增加视频会议管理员邀请用户、用户方显示视频会议来电。
+2、demo增加发送富文本、状态、@等消息。
+3、demo增加转移群主创建者功能。
+
+
+Release Version 5.2.0
+---sdk新加新功能
+    1、SDK 增加多端登陆设备通知功能
+        public void onReceiveMultiDeviceState(Context ctx, ECMultiDeviceState... multiDevice) {
+        }
+    2、Android SDK 增加对部分群组公告标点符号的支持。
+    3、SDK增加设置群组成员角色接口ECGroupManager中的
+       void setGroupMemberRole(String groupId,String member,ECGroupMemberRole role , OnSetGroupMemberRoleListener l);    
+    4、Android SDK增加多设备消息同步
+    5、sdk对于查询好友状态API进行扩展：支持查询单人及多人。ECDevice中的
+        查询单人public static void getUserState(String userId , final OnGetUserStateListener listener)
+        批量查询多人public static void getUsersState(String[] userId , OnGetUsersStateListener listener)
+   6、sdk修复视频会议发布、取消获取成员不能回调bug。
+
+-------demo新加功能
+  1、Android Demo 增加免打扰后显示未读条数。
+  2、demo 增加分享功能、快捷分享到微信朋友及朋友圈、开发者如果需要app集成分享功能可以进行参考。
+  3、demo群组增加设置管理员角色功能及群组界面显示效果调整。
+
+
+Release Version 5.1.9
+--新功能
+    1、VoIP呼叫增加可以设置自定义铃声提醒文件/来电铃声播放中可以设置停止提醒 (接口如下)
+        //设置来电提示音
+        void setInComingRingUrl(boolean enabled , String ringUrl);
+        //设置呼叫提示音
+        void setOutGoingRingUrl(boolean enabled ,String ringUrl);
+        //设置呼叫连接被占用提示音
+        void setBusyRingTone(boolean enabled , String ringUrl);
+        //设置来电铃声静音
+        void setIncomingCallRingSilent();
+    2、Android SDK 消息提醒优化（ECMessage增加接口判断此消息是否已经提醒过用户）
+    3、在Android v5.1.9r 版本上增加对消息/来电 权限验证控制，如果不设置将可能无法在后台接收到消息/来电
+
+
+-- 接口变更
+        以下接口从5.1.9版本开始不再使用 (参考替换接口)
+        1、铃声接口
+            void setIncomingSoundEnabled(boolean enabled);
+            boolean isIncomingSoundEnabled();
+            void setOutgoingSoundEnabled(boolean enabled);
+            boolean isOutgoingSoundEnabled();
+            void setDisconnectSoundEnabled(boolean enabled);
+            boolean isDisconnectSoundEnabled();
+        2、视频通话接口
+            ViERenderer.CreateLocalRenderer(Context context);
+            采用void setVideoView(SurfaceView view, SurfaceView captureView);设置本地和远端图像显示控件
+            参考com.yuntongxun.ecsdk.voip.video.ECCaptureView;
+
+
+
+
+--Bug修复
+    1、SDK在服务重新绑定的时候会异常崩溃
+    2、Android SDK在音视频通话过程中获取网络流量信息和通话状态信息为NULL
+    3、SDK同步消息可能导致SDK异常崩溃问题
+    5、SDK视频会议结束释放会议资源不完整导致视频呼叫无法显示远端图像/无法预览本地图像
+    6、SDK视频会议远端图像切换View过程中导致图像无法在View上面显示完整（有黑边）
+
+
+Release Version 5.1.8
+Android 5.1.8(私有进程)版本更新如下：（支持arm64）
+--新功能
+        1、安卓sdk从v5.1.8开始变更为可以设置私有进程机制、以解决app被kill掉、被系统回收、及用户想在app退出时，可以选择继续接收消息等一系列高级功能
+                从v5.1.8r版本开始，SDK修改了消息通知优先级：顺序如下
+                a、直接通过设置的回调接口（OnChatReceiveListener）Push给应用
+                b、如果应用没有设置回调接口则采用（BroadcastReceiver）广播通知（v5.1.8版本）此时如果应用处于未运行状态则会直接唤醒应用处理 （应用被系统Kill） （非常重要）
+                c、如果应用未处于运行状态并且不想被唤醒应用运行则采用状态栏通知处理（SDK直接提醒，不会通知应用）,比如调用
+                        ECDevice#logout(ECDevice.NotifyMode, ECDevice.OnLogoutListener)退出接口传入后台接收消息才会有提醒
+            
+                注意：以上在a和b的场景下，SDK都会将消息直接给应用处理，只有在c的情况SDK才会直接处理消息提醒，所以应用需要处理a和b两种情况        
+        2、安卓新增消息通知方式、比如您的app不小心被kill状态可以通过该方式(广播方式)将消息传给应用、以保证您的app在任何IM场景下都能不丢消息。
+        3、Android SDK Service 可以设置属性 [android:process] ，在私有进程下运行、确保您的app即便在被某软件kill掉的情况下、还能继续接收到消息。
+        4、demo增加voip语音通话过程中发送按键dtmf功能、发送方通过ECDevice.getECVoIPCallManager().sendDTMF(String callid, char dtmf)方法发送按键字符信息(参考值范围：'0'-'9'' * ‘’#’)、
+                接收方需要实现接口ECVoIPCallManager.OnVoIPListener，然后通过onDtmfReceived(String callid, char dtmf)回调接收对方发送过来的按键值、dtmf即是对方发送过来的按钮值。
+        5、demo增加了退出客户端、可以选择是否还会接收到新消息功能、该功能基于android sdk v5.1.8r版本
+                可以让你的app在退出的时候还能接收到新消息(当然这个是可以进行选择的)。’
+
+--Bug修复   
+   1、修复并适配了部分安卓机型在待机情况下，自动断线问题。
+   2、修复并适配了安卓部分机型在点对点视频通信时，图像是左右反镜像问题。
+   3、修复并适配了安卓双进程demo部分机型不弹出消息的问题。
+   4、修复解决视频会议时，反复切换视频会议View控件，导致视频图像缩小
+   5、优化、提高了Andorid视频图像绘制速度
+   6、修复阅后即焚消息图片可以长按保存的bug
+   7、修复登录账号时、邮箱不可以登录的bug。
+   8、修复群组详情界面的修改群公告和群昵称时候能输入特殊符号的bug。
+   9、提高了IM消息和voip来电呼叫的到达率。确保不丢消息及来电呼叫。
+Release Version 5.1.7
+1） 阅后即焚。2） 获取用户在线状态。
+3） 创建群组增加省份和城市、类型字段及群组成员列表UI优化。另外对群组名字、群组描述、城市、省份、用户账号的合法性验证。
+4）@功能。 Demo仅实现输入@后弹出成员列表，用户选择后返回输入框。
+5）demo增加讨论组。
+6） 视频缩略图预览。视频文件大小显示。
+7）修复点对点视频被叫摄像头无法切换的问题
+
+
+Release Version 5.1.6
+1、新增视频会议接口如下：
+    #在当前参与的视频会议中发布自己的视频图像
+    void publishSelfVideoFrameInVideoMeeting(String meetingNo , OnSelfVideoFrameChangedListener listener);
+    #在当前参与的视频会议中取消发布自己的视频图像
+    void cancelPublishSelfVideoFrameInVideoMeeting(String meetingNo, OnSelfVideoFrameChangedListener listener);
+    #在当前参与的视频会议中请求获取某一成员的视频图像
+    void requestMemberVideoInVideoMeeting(String meetingNo , String meetingPwd, String account, View displayView, String ip,
+                                      int port, OnMemberVideoFrameChangedListener listener);
+    #在当前参与的视频会议中取消实时获取某一成员的视频图像
+    void cancelRequestMemberVideoInVideoMeeting(String meetingNo, String meetingPwd, String account, OnMemberVideoFrameChangedListener listener);
+    #重置当前视频成员的视频图像窗口
+    void resetVideoMeetingWindow(String account, View videoWindow);
+2、修改群组接口增加doMain字段
+3、修改视频分辨率改变回调方法(VoIP呼叫/视频会议)
+    void onVideoRatioChanged(VideoRatio sRatio);
+4、修复查询群组成员没有[备注、名片昵称]等属性
+5、SDK增加生产环境/沙盒环境切换接口
+   void switchServerEvn(boolean isSandbox) (ECDevice);
