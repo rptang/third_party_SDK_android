@@ -10,17 +10,17 @@
 
     <ImageView
         android:id="@+id/iv_call_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
-        android:src="@mipmap/hj_img_01"/>
+        android:layout_width="270px"
+        android:layout_height="268px"
+        android:layout_marginTop="172px"
+        android:src="@drawable/hj_img_01"/>
 
     <TextView
         android:id="@+id/tv_call_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:textSize="48sp"
+        android:layout_marginTop="64px"
+        android:textSize="48px"
         android:textColor="@color/colorPrimary"
         android:text="正在呼叫联络台..."/>
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"
-            android:textSize="30sp"
+            android:textSize="30px"
             android:text="@string/call_holding_time"/>
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"
-            android:textSize="30sp"
+            android:textSize="30px"
             android:text="00:00:03"/>
 
     </LinearLayout>
@@ -52,8 +52,7 @@
         android:id="@+id/ll_answer_method"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="128px"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -64,16 +63,16 @@
 
             <ImageView
                 android:id="@+id/iv_close_microphone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/btn_gbmkf_1"/>
+                android:layout_width="140px"
+                android:layout_height="140px"
+                android:src="@drawable/btn_gbmkf_1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="30px"
                 android:textColor="@color/grey"
-                android:textSize="30sp"
+                android:textSize="30px"
                 android:text="@string/close_microphone"/>
 
         </LinearLayout>
@@ -82,21 +81,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginLeft="154dp"
+            android:layout_marginLeft="154px"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_open_speakerphone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/btn_kqmt_1"/>
+                android:layout_width="140px"
+                android:layout_height="140px"
+                android:src="@drawable/btn_kqmt_1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="30px"
                 android:textColor="@color/grey"
-                android:textSize="30sp"
+                android:textSize="30px"
                 android:text="@string/open_speakerphone"/>
 
         </LinearLayout>
@@ -106,32 +105,32 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="130dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginLeft="130px"
+        android:layout_marginRight="130px"
+        android:layout_marginTop="150px"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/iv_not_answer_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="146px"
+            android:layout_height="146px"
             android:visibility="invisible"
-            android:src="@mipmap/btn_jjjt_1"
+            android:src="@drawable/btn_jjjt_1"
             android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/iv_stop_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/btn_thz_1"
+            android:layout_width="146px"
+            android:layout_height="146px"
+            android:src="@drawable/btn_thz_1"
             android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/iv_answer_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="146px"
+            android:layout_height="146px"
             android:visibility="invisible"
-            android:src="@mipmap/btn_jt_1"
+            android:src="@drawable/btn_jt_1"
             android:layout_weight="1"/>
 
     </LinearLayout>

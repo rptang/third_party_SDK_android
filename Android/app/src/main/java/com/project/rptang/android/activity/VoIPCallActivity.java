@@ -2,10 +2,12 @@ package com.project.rptang.android.activity;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,12 +15,13 @@ import android.widget.TextView;
 import com.project.rptang.android.R;
 import com.project.rptang.android.utils.ECNotificationManager;
 import com.project.rptang.android.voip.VoIPCallHelper;
+import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.VideoRatio;
 
 
-public class VoIPCallActivity extends Activity implements View.OnClickListener, VoIPCallHelper.OnCallEventNotifyListener {
+public class VoIPCallActivity extends BaseActivity implements View.OnClickListener, VoIPCallHelper.OnCallEventNotifyListener {
 
     //呼叫/接听对方头像
     private ImageView iv_call_profile;
@@ -83,10 +86,27 @@ public class VoIPCallActivity extends Activity implements View.OnClickListener, 
         setContentView(R.layout.activity_vo_ipcall);
 
         instance = this;
-        initView();
-        addEventListener();
+        initView(); //初始化控件
+        addEventListener();//添加控件监听事件
+        initState(); //初始化呼叫所需要的状态信息，如果不满足一些条件就return跳出，不必往下执行
+        initCall(); //初始化状态信息后，我们需要做一系列操作：呼叫、接听、免提、挂断等等
+    }
 
-        initCall();
+    private void initCall(){
+
+    }
+
+    private void initState(){
+
+        if(init()) {
+            return ;
+        }
+
+        if(mCallType == null) {
+            mCallType = ECVoIPCallManager.CallType.VOICE;
+        }
+
+        initProwerManager();
     }
 
     @Override
@@ -112,8 +132,16 @@ public class VoIPCallActivity extends Activity implements View.OnClickListener, 
         ll_answer_method = (LinearLayout) findViewById(R.id.ll_answer_method);
     }
 
-    private void initCall(){
+    private boolean init(){
 
+        if(getIntent()==null){
+            return true;
+        }
+        mIntent=getIntent();
+        mIncomingCall = !(getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
+        mCallType = (ECVoIPCallManager.CallType) getIntent().getSerializableExtra(ECDevice.CALLTYPE);
+
+        return false;
     }
 
     private void addEventListener() {
@@ -123,6 +151,15 @@ public class VoIPCallActivity extends Activity implements View.OnClickListener, 
         iv_not_answer_call.setOnClickListener(this);
         iv_answer_call.setOnClickListener(this);
         iv_stop_call.setOnClickListener(this);
+    }
+
+    /**
+     * 初始化资源
+     */
+    protected void initProwerManager() {
+        mWakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(
+                PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP , "CALL_ACTIVITY#" + super.getClass().getName());
+        mKeyguardManager = ((KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE));
     }
 
     @Override

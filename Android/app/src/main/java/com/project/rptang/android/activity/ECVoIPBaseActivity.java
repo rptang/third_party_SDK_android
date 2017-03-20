@@ -206,15 +206,20 @@ public class ECVoIPBaseActivity extends BaseActivity implements VoIPCallHelper.O
 
     }
 
-    @Override
-    public void onCallReleasedUP(String callId) {
-
-    }
-
 //    @Override
 //    public void onVideoRatioChanged(VideoRatio videoRatio) {
 //
 //    }
+
+//    @Override
+//    public void onCallReleasedUP(String callId) {
+//
+//    }
+
+    @Override
+    public void onVideoRatioChanged(VideoRatio videoRatio) {
+
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {

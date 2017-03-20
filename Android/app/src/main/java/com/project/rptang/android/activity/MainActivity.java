@@ -1,6 +1,7 @@
 package com.project.rptang.android.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,10 +44,11 @@ public class MainActivity extends Activity {
         btn_call_john.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mCurrentCallId = ECDevice.getECVoIPCallManager().makeCall(
-                        ECVoIPCallManager.CallType.VOICE, "18094286271");
-
-                Log.d(TAG, "onClick: "+mCurrentCallId);
+//                String mCurrentCallId = ECDevice.getECVoIPCallManager().makeCall(
+//                        ECVoIPCallManager.CallType.VOICE, "18094286271");
+//
+//                Log.d(TAG, "onClick: "+mCurrentCallId);
+                startActivity(new Intent(MainActivity.this,VoIPCallActivity.class));
             }
         });
     }
